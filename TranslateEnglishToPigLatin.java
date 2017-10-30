@@ -5,10 +5,12 @@ Grand Circus
 Lab 6
 */
 
-//Application will:
-// 1. prompt user for a word
-// 2. translate text to Pig Latin and display on the console
-// 3. ask the user if whether to translate another word
+/**
+ *  Application will:
+1. prompt user for a word
+2. translate text to Pig Latin and display on the console
+3. ask the user if whether to translate another word
+ */
 
 import java.util.Scanner;
 
@@ -18,52 +20,64 @@ public class TranslateEnglishToPigLatin {
 		Scanner sc = new Scanner(System.in);
 		String userInput = "default";
 		boolean repeat = true;
-		
+		String[] tempArray;
+		String singleWord;
+
 		System.out.print("Hey, I'm your Pig Latin Translator!");
-	
-		while(repeat){
-		
-		System.out.println("\nEnter a line to be translated: ");
 
-		
-		userInput = convertWordToLowercase(sc.nextLine()); // converts word to lowercase
+		while (repeat) {
 
-		if (isBeginningOfWordAVowel(userInput)) { //checks if beginning of word is a vowel
-			System.out.println(addWay(userInput)); //if begins with a vowel adds "-ay"
-		} else {
-			System.out.println(translateToPigLatin(userInput)); //translates a word that begins with a consonant to PigLatin
+			System.out.println("\nEnter a line to be translated: ");
+
+			userInput = sc.nextLine().toLowerCase(); // converts word to lowercase
+
+			tempArray = userInput.split(" ");
+			/*
+			 * for (int i = 0; i < tempArray.length; i++) {
+			 * System.out.println(tempArray[i]);
+			 * 
+			 */ 
+
+		for (int i = 0; i < tempArray.length; i++) {
+			singleWord = tempArray[i];
+			if (isCharAVowel(singleWord.charAt(0))) { // checks if beginning of word is a vowel
+				System.out.print(singleWord.concat("way") + " "); // if begins with a vowel adds "-way"
+			} else {
+				System.out.print(translateToPigLatin(singleWord) + " "); // translates a word that begins with a
+				// consonant to PigLatin
+			}
 		}
 
-		System.out.println("\nWould you like to translate another word?");
+		System.out.println("\nThat was fun! Would you like to translate another word?");
 		repeat = repeatYesNo(sc);
-		
-		}
-		
-		sc.close();
-	}
-
-	public static String convertWordToLowercase(String string) {
-		// convert each word to lowercase before translating
-		return string = string.toLowerCase();
-	}
-
-	public static boolean isBeginningOfWordAVowel(String userInput) {
-		// takes in a String and checks that the first letter is a vowel
-		return isCharAVowel(userInput.charAt(0));
 
 	}
 
-	public static String addWay(String userInput) {
-		// takes a String and adds "-way"
-		return userInput.concat("way");
+	sc.close();
+
 	}
 
+	/*
+	 * public static String convertWordToLowercase(String string) { // convert each
+	 * word to lowercase before translating return string = string.toLowerCase(); }
+	 */
+	/*
+	 * public static boolean isBeginningOfWordAVowel(String userInput) { // takes in
+	 * a String and checks that the first letter is a vowel return
+	 * isCharAVowel(userInput.charAt(0));
+	 * 
+	 * }
+	 * 
+	 * public static String addWay(String userInput) { // takes a String and adds
+	 * "-way" return userInput.concat("way"); }
+	 */
 	public static String translateToPigLatin(String userInput) {
 		// take in a String
 		// find the ConstantsBeforeVowel
 		// find index of the vowel, use this to
 		// return just the letters of after the vowel
-		// add the beginningConstantBeforeVowel to end of costantsAfterVowel and add "-ay"
+		// add the beginningConstantBeforeVowel to end of costantsAfterVowel and add
+		// "-ay"
 
 		String beginningConstantsBeforeVowel = returnConsonantsBeforeVowel(userInput);
 		int indexOfVowel = beginningConstantsBeforeVowel.length();
@@ -112,16 +126,16 @@ public class TranslateEnglishToPigLatin {
 		// take an int that is the index of the vowel
 		return userInput.substring(indexOfVowel); // return the the vowel and the letters after that vowel
 	}
-	
+
 	public static boolean repeatYesNo(Scanner sc) {
 		// returns true or false depending if the user enters 'n'
-			sc.hasNext();
-			
-			if(sc.nextLine().equalsIgnoreCase("N")) {
-				return false;
-			} else {
-				return true;
-			}
-			
+		sc.hasNext();
+
+		if (sc.nextLine().equalsIgnoreCase("N")) {
+			return false;
+		} else {
+			return true;
 		}
+
+	}
 }
